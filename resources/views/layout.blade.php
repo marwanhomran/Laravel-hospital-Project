@@ -48,7 +48,7 @@
     {{--Sweeeeeet Alert --}}
     <script>
         $(".delete").click(function (event) {
-
+// here 
             let form = $(this).closest("form");
             event.preventDefault();
             // let $id = $(this).attr('data-id')
