@@ -33,8 +33,7 @@ class BillController extends Controller
         $request->only(['print_date', 'pay_date', 'amount', 'status', 'employee_name', 'room_number', 'patient_name']);
         $bll = $request->all();
 //        $employeeid2 = Employee::query()->where('first_name', '=', data_get($bll, 'employee_name'))->value();
-        //        $employeeid2 = Employee::query()->where('first_name', '=', data_get($bll, 'employee_name'))->value();
-//        dd($employeeid2);
+
         $employeeid = DB::table('employees')->where('first_name', '=', data_get($bll, 'employee_name'))->value('id');
         $roomnumber = DB::table('rooms')->where('id', '=', data_get($bll, 'room_number'))->value('id');
         $patientid  = DB::table('patients')->where('first_name', '=', data_get($bll, 'patient_name'))->value('id');
