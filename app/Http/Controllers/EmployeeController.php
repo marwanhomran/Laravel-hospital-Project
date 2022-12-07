@@ -4,15 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use App\Models\Department;
+use App\Models\User;
+use http\Encoding\Stream\Debrotli;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class EmployeeController extends Controller
 {
 
-    public function index(Employee $employee)
+    public function index(Request $request,Employee $employee)
     {
-        return view('employees.index', ['employees' => $employee->all(),
-            'employees' => $employee->paginate(7)
+        $result = $this->getSearch($request,$employee);
+        return view('employees.index', [
+            'employees' => $result
         ]);
     }
 
@@ -78,4 +83,47 @@ class EmployeeController extends Controller
         return redirect()->route('employees.index');
     }
 
+    public function getSearch($request,$employee)
+    {
+
+        if ($request) {
+            $f = $request->get('first_name');
+            $l = $request->get('last_name');
+            $s = $request->get('salary');
+            $h = $request->get('hire_date');
+            $p = $request->get('specialization');
+            $d = Department::where('department_name', '=', $request->get('department_name'))->value('id');
+
+
+            $employee = $employee->when($f, function ($query, $f) {
+                $query->where('first_name', 'LIKE', '%' . $f . '%');
+            })->when($l, function ($query, $l) {
+                $query->where('last_name', 'LIKE', '%' . $l . '%');
+            })->when($s, function ($query, $s) {
+                $query->where('salary', 'LIKE', '%' . $s . '%');
+            })->when($h, function ($query, $h) {
+                $query->where('hire_date', 'LIKE', '%' . $h . '%');
+            })->when($p, function ($query, $p) {
+                $query->where('specialization', 'LIKE', '%' . $p . '%');
+            })->when($d, function ($query, $d) {
+                $query->where('department_id', '=', $d);
+            })->paginate(7);
+
+        } else {
+            $employee = $employee->paginate(7);
+        }
+        return $employee;
+    }
+//    public function autocomplete(Request $request)
+//    {
+//
+//        $data = [];
+//        if($request->has('q')){
+//            $a = $request->get('q');
+//            $data = Employee::where('first_name', 'LIKE', "%$a%")
+//                ->get();
+//        }
+//
+//        return response()->json($data);
+//    }
 }

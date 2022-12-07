@@ -32,7 +32,7 @@
                 <td>{{$patient->age}}</td>
                 <td>
                     <a href="{{route('patients.show', ['patient'=> $patient->id])}}"
-                       class="btn btn-info">View</a> {{--inside href  Or /employees/{{$employee->id}} Or /employees/{employee}--}}
+                       class="btn btn-info">View</a>
                     <a href="{{route('patients.edit', ['patient'=> $patient->id])}}" class="btn btn-primary">Edit</a>
                     <form class="d-inline" method="POST"
                           action="{{route('patients.destroy', ['patient'=> $patient->id])}}">

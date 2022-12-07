@@ -26,8 +26,8 @@
                 <td>{{$dose->id}}</td>
                 <td>{{$dose->dose}}</td>
                 <td>{{$dose->unit}}</td>
-                <td>{{DB::table('medicines')->where('id', $dose->medicine_id)->value('medicine_name')}}</td>
-                <td>{{DB::table('patients')->where('id', $dose->patient_id)->value('first_name')}}</td>
+                <td>{{$dose->medicine->medicine_name}}</td>
+                <td>{{$dose->patient->first_name}}</td>
                 <td>
                     <a href="{{route('doses.show', ['dose'=> $dose->id])}}"
                        class="btn btn-info">View</a> {{--inside href  Or /employees/{{$employee->id}} Or /employees/{employee}--}}

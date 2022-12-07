@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Patient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class PatientController extends Controller
 {
     public function index(Patient $patient)
     {
-        return view('patients.index', ['patients' => $patient->all(),
+        return view('patients.index', [
             'patients' => $patient->paginate(7)
         ]);
     }
@@ -46,8 +47,7 @@ class PatientController extends Controller
 
     public function edit(Patient $patient)
     {
-
-        return view('patients.edit', ['patient' => $patient,'patients'=>$patient->all()]);
+        return view('patients.edit', ['patient' => $patient, 'patients' => $patient->all()]);
 
     }
 

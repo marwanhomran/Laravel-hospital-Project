@@ -9,8 +9,10 @@ class MedicineController extends Controller
 {
     public function index(Medicine $medicine)
     {
-        return view('medicines.index', ['medicines' => $medicine->all(),
+        return view('medicines.index', [
+
             'medicines' => $medicine->paginate(7)
+
         ]);
     }
 

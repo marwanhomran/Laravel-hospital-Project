@@ -20,14 +20,18 @@
         <div class="row">
             <div class="form-group col">
                 <label for="dose_time">Dose Time</label>
-                <input type="text" class="form-control" id="dose_time" name="dose_time" placeholder="dose_time">
+                <select class="form-control" name="dose_time">
+                    <option value="morning">Morning</option>
+                    <option value="mid-day">Mid-Day</option>
+                    <option value="evening">Evening</option>
+                </select>
             </div>
 
         </div>
         <div class="row">
             <div class="form-group col">
                 <label for="medicine_id">Medicine Name</label>
-                <select class="form-control" name="medicine_id" size="5">
+                <select class="form-control" name="medicine_id">
                     @foreach($medicines as $medicine)
                         <option value="{{$medicine->id}}">{{$medicine->medicine_name}}</option>
                     @endforeach
@@ -35,8 +39,12 @@
             </div>
 
             <div class="form-group col">
-                <label for="patient_name">Patient Name</label>
-                <input type="text" class="form-control" id="patient_name" name="patient_name" placeholder="patient_name">
+                <label for="patient_id">Patient Name</label>
+                <select class="form-control" name="patient_id">
+                    @foreach($patients as $patient)
+                        <option value="{{$patient->id}}">{{$patient->first_name}}</option>
+                    @endforeach
+                </select>
             </div>
 
         </div>

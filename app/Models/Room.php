@@ -18,4 +18,10 @@ class Room extends Model
         return $this->belongsTo(Department::class);
     }
 
+    public function visit()
+    {
+        //hasOne hasMany belongTo belongsToMany
+        return $this->hasMany(Visit::class);
+    }
+
 }

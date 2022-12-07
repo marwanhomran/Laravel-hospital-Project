@@ -1,35 +1,34 @@
 @extends('layout')
 
 @section('title')
-    <title>Rooms Page</title>
+    <title>Posts Page</title>
 @endsection
 
 
 @section('content')
-    <a href="{{route('rooms.create')}}" class="btn btn-success ">Create New One</a>
+    <a href="{{route('posts.create')}}" class="btn btn-success ">Create New One</a>
 
     <table class="table table-dark mt-1 text-center">
         <thead>
         <tr>
             <th scope="col">ID</th>
-            <th scope="col">Number Of Beds</th>
-            <th scope="col">Department Name</th>
+            <th scope="col">Title</th>
+            <th scope="col">Image</th>
             <th scope="col">Actions</th>
         </tr>
         </thead>
         <tbody>
 
-        @foreach($rooms as $room)
+        @foreach($posts as $post)
             <tr>
-                <td>{{$room->id}}</td>
-                <td>{{$room->beds_number}}</td>
-                <td>{{$room->department->department_name}}</td>
+                <td>{{$post->id}}</td>
+                <td>{{$post->title}}</td>
+                <td>image</td>
                 <td>
-                    <a href="{{route('rooms.show', ['room'=> $room->id])}}"
+                    <a href="{{route('posts.show', ['post'=> $post->id])}}"
                        class="btn btn-info">View</a>
-                    <a href="{{route('rooms.edit', ['room'=> $room->id])}}" class="btn btn-primary">Edit</a>
                     <form class="d-inline" method="POST"
-                          action="{{route('rooms.destroy', ['room'=> $room->id])}}">
+                          action="{{route('posts.destroy', ['post'=> $post->id])}}">
                         @csrf
                         @method('DELETE')
                         <button class="btn btn-danger delete" type="submit">Delete</button>
@@ -37,10 +36,11 @@
                     </form>
                 </td>
 
+
             </tr>
         @endforeach
         </tbody>
     </table>
-    {{$rooms->links()}}
+    {{$posts->links()}}
 @endsection
 

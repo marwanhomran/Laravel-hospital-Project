@@ -25,7 +25,11 @@
             </div>
             <div class="form-group col">
                 <label for="status">Status</label>
-                <input type="text" class="form-control" id="status" value="{{$bill->status}}" name="status" placeholder="Status">
+                <select class="form-control" name="status">
+                    <option value="paid">Paid</option>
+                    <option value="unpaid">Unpaid</option>
+                    <option value="incomplete">Incomplete</option>
+                </select>
             </div>
         </div>
         <button type="submit" class="btn btn-primary">Edit</button>

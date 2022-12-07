@@ -27,9 +27,10 @@
                 <td>{{$visit->id}}</td>
                 <td>{{$visit->entrance_date}}</td>
                 <td>{{$visit->status}}</td>
-                <td>{{\App\Models\Patient::query()->where('id','=',$visit->patient_id)->value('first_name')}}</td>
-                <td>{{\App\Models\Room::query()->where('id','=',$visit->room_id)->value('id')}}</td>
-                <td>{{\App\Models\Employee::query()->where('id','=',$visit->employee_id)->value('first_name')}}</td>
+                <td>{{$visit->patient->first_name}}</td>
+                <td>{{$visit->room->id}}</td>
+                <td>{{$visit->employee->first_name}}</td>
+{{--                <td>....</td>--}}
                 <td>
                     <a href="{{route('visits.show', ['visit'=> $visit->id])}}"
                        class="btn btn-info">View</a> {{--inside href  Or /employees/{{$employee->id}} Or /employees/{employee}--}}

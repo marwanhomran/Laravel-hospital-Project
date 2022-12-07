@@ -13,7 +13,7 @@ class DoseController extends Controller
 {
     public function index(Dose $dose)
     {
-        return view('doses.index', ['doses' => $dose->all(),
+        return view('doses.index', [
             'doses' => $dose->paginate(7)
         ]);
     }
@@ -32,25 +32,27 @@ class DoseController extends Controller
 
     public function store(Dose $dose, Request $request)
     {
-        $request->only(['dose', 'unit', 'dose_time', 'medicine_id', 'patient_name']);
+        $request->only(['dose', 'unit', 'dose_time', 'medicine_id', 'patient_id']);
         $ds = $request->all();
-        $patientname = DB::table('patients')->where('first_name','=',data_get($ds, 'patient_name'))->value('id');
         $dose::create([
             'dose' => data_get($ds, 'dose'),
             'unit' => data_get($ds, 'unit'),
             'dose_time' => data_get($ds, 'dose_time'),
             'medicine_id' => data_get($ds, 'medicine_id'),
-            'patient_id' => $patientname
+            'patient_id' => data_get($ds, 'patient_id')
         ]);
 
         return redirect()->route('doses.index');
     }
 
-    public function edit(Dose $dose,Medicine $medicines)
+    public function edit(Dose $dose,Medicine $medicines,Patient $patients)
     {
 
-        return view('doses.edit', ['dose' => $dose,'medicines'=>$medicines->all()]);
-
+        return view('doses.edit', [
+            'dose' => $dose,
+            'medicines'=>$medicines->all(),
+            'patients'=>$patients->all()
+        ]);
     }
 
 

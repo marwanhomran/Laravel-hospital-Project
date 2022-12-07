@@ -19,18 +19,33 @@
         </div>
         <div class="row">
             <div class="form-group col">
-                <label for="patient_name">Patient Name</label>
-                <input type="text" class="form-control" id="patient_name" name="patient_name" placeholder="patient Name">
+                <label for="patient_id">Patient Name</label>
+                <select class="form-control" name="patient_id">
+                    @foreach($patients as $patient)
+                        <option value="{{$patient->id}}">{{$patient->first_name}} {{$patient->last_name}}</option>
+                    @endforeach
+                </select>
             </div>
+
             <div class="form-group col">
-                <label for="room_number">Room Number</label>
-                <input type="number" class="form-control" id="room_number" name="room_number" placeholder="Room Number">
+                <label for="room_id">Room Number</label>
+                <select class="form-control" name="room_id">
+                    @foreach($rooms as $room)
+                        <option value="{{$room->id}}">{{$room->id}}</option>
+                    @endforeach
+                </select>
             </div>
+
             <div class="form-group col">
-                <label for="employee_name">Employee Name</label>
-                <input type="text" class="form-control" id="employee_name" name="employee_name" placeholder="Employee Name">
+                <label for="employee_id">Employee Name</label>
+                <select class="form-control" name="employee_id">
+                    @foreach($employees as $employee)
+                        <option value="{{$employee->id}}">{{$employee->first_name}} {{$employee->last_name}}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
+
         <button type="submit" class="btn btn-primary">Create</button>
         <a href="{{route('visits.index')}}" class="btn btn-secondary">Go Back</a>
     </form>

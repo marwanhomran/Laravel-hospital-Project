@@ -10,7 +10,7 @@ class RoomController extends Controller
 {
     public function index(Room $room)
     {
-        return view('rooms.index', ['rooms' => $room->all(),
+        return view('rooms.index', [
             'rooms' => $room->paginate(7)
         ]);
     }
@@ -29,7 +29,6 @@ class RoomController extends Controller
 
     public function store(Room $room, Request $request)
     {
-//        $request->only(['first_name', 'last_name', 'salary', 'hire_date', 'specialization', 'description', 'department_id']);
         $rom = $request->all(); //get all the field by it names from the form...
 
         $room::create([

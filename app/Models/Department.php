@@ -11,13 +11,6 @@ class Department extends Model
 
     protected $fillable = ['department_name', 'description'];
 
-
-    public function employee()
-    {
-        //hasOne hasMany belongTo belongsToMany
-        return $this->hasMany(Employee::class);
-    }
-
     public function room()
     {
         //hasOne hasMany belongTo belongsToMany

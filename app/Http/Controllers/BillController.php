@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Bill;
 use App\Models\Employee;
+use App\Models\Patient;
+use App\Models\Room;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -11,7 +13,7 @@ class BillController extends Controller
 {
     public function index(Bill $bill)
     {
-        return view('bills.index', ['bills' => $bill->all(),
+        return view('bills.index', [
             'bills' => $bill->paginate(7)
         ]);
     }
@@ -22,28 +24,27 @@ class BillController extends Controller
         return view('bills.show', ['bill' => $bill]);
     }
 
-    public function create()
+    public function create(Employee $employees, Patient $patients,Room $rooms)
     {
 
-        return view('bills.create');
+        return view('bills.create', [
+            'employees' => $employees->all(),
+            'patients' => $patients->all(),
+            'rooms' => $rooms->all()
+        ]);
     }
 
     public function store(Bill $bill, Request $request)
     {
-        $request->only(['print_date', 'pay_date', 'amount', 'status', 'employee_name', 'room_number', 'patient_name']);
+        $request->only(['print_date', 'pay_date', 'amount', 'status', 'employee_id', 'room_id', 'patient_id']);
         $bll = $request->all();
-//        $employeeid2 = Employee::query()->where('first_name', '=', data_get($bll, 'employee_name'))->value();
-
-        $employeeid = DB::table('employees')->where('first_name', '=', data_get($bll, 'employee_name'))->value('id');
-        $roomnumber = DB::table('rooms')->where('id', '=', data_get($bll, 'room_number'))->value('id');
-        $patientid  = DB::table('patients')->where('first_name', '=', data_get($bll, 'patient_name'))->value('id');
         $bill::create([
             'print_date' => data_get($bll, 'print_date'),
             'pay_date' => data_get($bll, 'pay_date'),
             'amount' => data_get($bll, 'amount'),
-            'visit_id' => DB::table('visits')->where('employee_id', '=', $employeeid)
-                ->where('room_id', '=', $roomnumber)
-                ->where('patient_id', '=', $patientid)->value('id'),
+            'visit_id' => DB::table('visits')->where('employee_id', '=', data_get($bll, 'employee_id'))
+                ->where('room_id', '=', data_get($bll, 'room_id'))
+                ->where('patient_id', '=', data_get($bll, 'patient_id'))->value('id'),
             'status' => data_get($bll, 'status'),
 
         ]);

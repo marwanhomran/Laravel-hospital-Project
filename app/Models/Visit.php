@@ -17,6 +17,11 @@ class Visit extends Model
         return $this->belongsTo(Patient::class);
     }
 
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
+    }
+
     public function bill()
     {
         //hasOne hasMany belongTo belongsToMany

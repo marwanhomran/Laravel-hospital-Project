@@ -24,8 +24,11 @@
         <div class="row">
             <div class="form-group col">
                 <label for="dose_time">Dose Time</label>
-                <input type="text" class="form-control" id="dose_name" value="{{$dose->dose_time}}" name="dose_time"
-                       placeholder="Dose Time">
+                <select class="form-control" name="dose_time">
+                        <option value="morning">Morning</option>
+                        <option value="mid-day">Mid-Day</option>
+                        <option value="evening">Evening</option>
+                </select>
             </div>
             <div class="form-group col">
                 <label for="medicine_id">Medicine Name</label>
@@ -35,14 +38,17 @@
                     @endforeach
                 </select>
             </div>
-                <div class="form-group col">
-                    <label for="patient_id">Patient ID</label>
-                    <input type="number" class="form-control" id="patient_id" value="{{$dose->patient_id}}" name="patient_id"
-                           placeholder="patient_id">
-                </div>
+            <div class="form-group col">
+                <label for="patient_id">Patient Name</label>
+                <select class="form-control" name="patient_id">
+                    @foreach($patients as $patient)
+                        <option value="{{$patient->id}}">{{$patient->first_name}}</option>
+                    @endforeach
+                </select>
+            </div>
         </div>
         <button type="submit" class="btn btn-primary">Edit</button>
-        <a href="{{route('employees.index')}}" class="btn btn-secondary">Go Back</a>
+        <a href="{{route('doses.index')}}" class="btn btn-secondary">Go Back</a>
     </form>
 @endsection
 
